@@ -1,0 +1,45 @@
+﻿Important Bug fixes
+- Fix HDR.
+    - Find what values of Average log luminance and Key would render something visible for the equation you have.
+    - Make sure that the equation you have is good.
+    - Need to figure out what part of the program HDR calculations belong to now that we have a scenegraph
+
+Functional improvements
+
+Visual Improvements
+
+Best Practice improvements
+- At some point, figure out if you can move to a complete 4point vector system instead of switching between vector 4 and vector 3.
+- Cleanup world transform matrices in ModelNode.cs. As in, not sure if I need to rely on someone passing me a world transform matrix or whether I would be able to calculate it on
+  my own every time. Whether I even need to keep a "position" vector if I keep a world transformation matrix. 
+- I am not very happy with my ModelNode structure right now. It makes the recursion be a bit funky. What I mean is that the "ModelNode" tree is not single rooted in SceneGraph. 
+  so there is an array of ModelNodes in SceneGraph and then every node can have an array of subnodes. It would be nicer if the ModelNode tree was rooted in SceneGraph through just one
+  ModelNode instance, then it would be more elegant I think.
+
+New features
+- Add Avatar support.
+    - Make sure you handle bones systems etc. correctly for this before you plug in.
+- Fluorescence.
+    - If not the whole feature, see if you can come up with a strategy to talk about in the demo.
+- Make light sources etc a content type that get imported through the content pipeline. Maybe.
+- Black and white film. 
+    - If not the whole feature, see if you can come up with a strategy to talk about in the demo.
+    (Just realized that this feature would not make sense until we have multiple objects with different materials being
+    rendered on screen since only gray values will be displayed on screen, and the shade of gray will be dependent on the light
+    intensity anyway.)
+- Figure out how multiple light sources will work from an XNA point of view.
+- It would be REALLY cool to show graphs for the difference spectra below the scene.
+
+Sanity checks and pre-defense todos
+- Verify all color calculations.
+- Double check that the infra-red calculations make sense and are good for demo purposes. Internally, what is happening for IR in RGB render mode? 
+    Maybe you can add an overloaded method that does NOT extend wavelength spectra for non-infrared things. 
+- Double check if your stretch wavelength logic is having desired results. I have a feeling that stretching with tail values instead of 
+  stretching with zeroed values might make things funky. Easy fix would be to stretch with 0. 
+
+Questions for faculty.
+- Currently, for RGB calculation, I am using D65, Macbeth White and 1964 observer as defaults. Is that ok? Is there a more elegant way to do it?
+- How does the tristimulus calculation happen with multiple light sources involved?
+
+Data needs.
+- Need some data on fluorescent light sources. (not to be confused with fluorescent materials).

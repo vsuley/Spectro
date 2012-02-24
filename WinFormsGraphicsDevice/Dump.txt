@@ -1,0 +1,8 @@
+﻿- Should I make the model node classes aware of full spectral nature of the program?
+    - If not, then who eles maintains that information.
+        - 
+    - I think teh answer should be yes, coz it's gonna get unintuitive and hairy otherwise.
+- If the model classes are aware of the full spectral nature, then why would it not be ok for them to make the calls to
+  calculate colors etc?
+- Maybe I should store the model-world transform matrix instead of storing the vector, might save some runtime calculations.
+- READ UP ON THE BASIC MATRICES AGAIN!!!!!

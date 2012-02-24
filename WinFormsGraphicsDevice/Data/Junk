@@ -1,0 +1,42 @@
+int Manager::ReadLightSources(char *fileName)
+{
+    int numObjectsReadIn = 0;
+    
+    // Open the source file.
+    //
+    ifstream lightSourcesFile (fileName);
+    if(!lightSourcesFile) 
+    {
+        Log.Write ("Light sources file could not be opened");
+        return 0;
+    }
+
+    // Read in light sources .
+    //
+    vector<string> sourceCode;
+    while(lightSourcesFile.good())
+    {   
+        try 
+        {
+            LightSource lightSource(lightSourcesFile);
+            lightSources.push_back(lightSource);
+        }
+        catch (Exception &e)
+        {
+            if (numObjectsReadIn > 0)
+            {
+                Log.Write("There was an error reading light sources file. Check file for validity. Continuing with what we have");
+                break;
+            }
+            else
+            {
+                Log.Write("There was an error reading light sources file. File may be corrupt. No sources were read");
+                return 0;
+            }
+        }
+
+        numObjectsReadIn ++;
+    }
+    
+    return numObjectsReadIn;
+}
